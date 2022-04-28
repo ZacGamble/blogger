@@ -22,6 +22,7 @@ import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
 import { onMounted } from '@vue/runtime-core'
 import { profilesService } from "../services/ProfilesService.js";
+import { blogPostsService } from "../services/BlogPostsService.js";
 export default
 {
     setup()

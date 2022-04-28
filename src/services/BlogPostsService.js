@@ -8,5 +8,12 @@ class BlogPostsService{
         AppState.blogPosts = res.data
         logger.log(res.data, 'the res')
     }
+
+    async getByQuery(params = {})
+    {
+       const res = await api.get("api/blogs", { params })
+       logger.log("[BlogPosts getByQuery response]", res.data);
+       AppState.activePosts = res.data;
+    }
 }
 export const blogPostsService = new BlogPostsService()
