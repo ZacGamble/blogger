@@ -16,6 +16,10 @@ const routes = [
     name: 'Profile',
     component: loadPage('ProfilePage')
   },
+   { path: '/profile/:id/details',
+    name: 'PostDetails',
+    component: loadPage('PostDetails')
+  },
   {
     path: '/account',
     name: 'Account',
