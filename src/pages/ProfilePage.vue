@@ -1,11 +1,20 @@
 <template>
     <div class="row mt-3">
-        <div class="col-2">
-            <img v-if="profile.picture" :src="profile.picture" :alt="'Profile picture of ' + profile.name" class="img-fluid fit-cover rounded-circle" />
+        <div v-if="!editing">
+            <div class="col-2">
+                <img v-if="profile.picture" :src="profile.picture" :alt="'Profile picture of ' + profile.name" class="img-fluid fit-cover rounded-circle" />
+            </div>
+            <div class="col-10 d-flex">
+                <h3>{{ profile.name }}</h3>
+                <div class="ms-3">
+                    <button v-if="account.id === profile.id" class="btn btn-primary" @click="editing = true"><i class="mdi mdi-pen mdi-24px"></i></button>
+                </div>
+            </div>
         </div>
-        <div class="col-10">
-            <h3>{{ profile.name }}</h3>
-            <button v-if="account.id === profile.id" class="btn btn-primary"><i class="mdi mdi-pen mdi-24px"></i></button>
+        <div v-else>
+            <form @submit.prevent="updateProfile">
+                <input type="text" class="form-control" placeholder="Username" v-model="profile.name" />
+            </form>
         </div>
     </div>
     <div class="row mt-5">
@@ -17,7 +26,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
 import { onMounted } from '@vue/runtime-core'
@@ -30,11 +39,14 @@ export default
     setup()
     {
         const route = useRoute();
+        const editing = ref(false);
 
         onMounted(async () =>
         {
             try
             {
+                AppState.activeProfile = {};
+                AppState.activePosts = [];
                 await blogPostsService.getByQuery({ creatorId: route.params.id })
                 await profilesService.getProfileById(route.params.id);
             }
@@ -46,7 +58,7 @@ export default
         });
 
         return {
-            // TODO make Appstate.activeProfile and activePosts
+            editing,
             profile: computed(() => AppState.activeProfile),
             blogPosts: computed(() => AppState.activePosts),
             account: computed(() => AppState.account)
