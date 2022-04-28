@@ -15,7 +15,7 @@ class AccountService {
   async editAccount(update)
   {
     const res = api.put("account", update);
-    logger.log("AccountService > editAccount response", res.data);
+    // logger.log("AccountService > editAccount response", res.data);
   }
 }
 

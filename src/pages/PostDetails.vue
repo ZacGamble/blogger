@@ -2,11 +2,15 @@
   <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
-      <div class="component">
-        HI
-        <img src="" alt="profile pic" />
-        <h1>Profile name here:</h1>
+      <div class="component p-3 m-2">
+        <img :src="blogPosts[0].creator.picture" alt="profile pic" />
       </div>
+      <h1>
+        <strong>{{ blogPosts[0].title }}</strong>
+      </h1>
+      <h3>{{ blogPosts[0].creator.name }}</h3>
+      <h5>Last updated: {{ blogPosts[0].createdAt.substring(0, 10) }}</h5>
+      <p class="p-1 border fs-4">{{ blogPosts[0].body }}</p>
       <div class="col-2"></div>
     </div>
   </div>
@@ -19,6 +23,8 @@ import { blogPostsService } from "../services/BlogPostsService";
 import { profilesService } from "../services/ProfilesService";
 import { AppState } from "../AppState";
 import { useRoute } from "vue-router";
+import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
 export default {
   // props: {
   //   blogPosts: {
@@ -31,8 +37,9 @@ export default {
 
     onMounted(async () => {
       try {
-        await blogPostsService.getByQuery({ creatorId: route.params.id });
-        await profilesService.getProfileById(route.params.id);
+        logger.log("hello from details page");
+        await blogPostsService.getByQuery({ _id: route.params.id });
+        // await profilesService.getProfileById(route.params.id);
       } catch (error) {
         logger.error(error);
         Pop.toast(error.message, "error");

@@ -26,9 +26,7 @@
           mt-5
         "
       >
-        <router-link
-          :to="{ name: 'PostDetails', params: { id: blog.creator.id } }"
-        >
+        <router-link :to="{ name: 'PostDetails', params: { id: blog.id } }">
           <button class="btn btn-info">Expand view</button>
         </router-link>
       </div>
