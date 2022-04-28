@@ -6,7 +6,7 @@ class ProfilesService
 {
     async getProfileById(id)
     {
-        const res = await api.get("api/profile/" + id);
+        const res = await api.get("api/profiles/" + id);
         logger.log(`[Get Profile By Id response | id = ${id}]`, res.data);
         AppState.activeProfile = res.data;
     }
