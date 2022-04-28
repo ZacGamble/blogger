@@ -8,7 +8,7 @@
       Login
     </button>
 
-    <div class="dropdown my-2 my-lg-0" v-else>
+    <div class="dropdown my-2 my-lg-0 px-4 py-2 bg-light border border-dark rounded" title="Account Options" v-else>
       <div
         class="dropdown-toggle selectable"
         data-bs-toggle="dropdown"
@@ -22,13 +22,18 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name }}</span>
+          <span class="mx-3 text-dark">{{ account.name }}</span>
         </div>
       </div>
       <div
         class="dropdown-menu p-0 list-group w-100"
         aria-labelledby="authDropdown"
       >
+        <router-link :to="{ name: 'Profile', params: {id: account.id}}">
+          <div class="list-group-item list-group-item-action hoverable">
+            My Profile
+          </div>
+        </router-link>
         <router-link :to="{ name: 'Account' }">
           <div class="list-group-item list-group-item-action hoverable">
             Manage Account
