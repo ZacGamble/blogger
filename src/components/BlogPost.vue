@@ -1,8 +1,7 @@
 <template>
-  <div class="row my-4 border border-dark shadow">
+  <div class="row my-4 border border-dark shadow no-select action" @click="navigateTo('PostDetails', { id: blog.id })">
     <div class="col-9 p-3">
-      <router-link :to="{ name: 'Profile', params: { id: blog.creator.id } }">
-        <div class="">
+        <div class="selectable" @click.stop="navigateTo('Profile', { id: blog.creator.id })">
           <img
             class="img-fluid thumbnail"
             :src="blog.creator.picture"
@@ -11,7 +10,6 @@
           />
           <h4 class="">{{ blog.creator.name }}</h4>
         </div>
-      </router-link>
       <h3>{{ blog.title }}</h3>
       <p>{{ blog.body }}</p>
       <span>date?</span>
@@ -26,9 +24,6 @@
           mt-5
         "
       >
-        <router-link :to="{ name: 'PostDetails', params: { id: blog.id } }">
-          <button class="btn btn-info">Expand view</button>
-        </router-link>
       </div>
     </div>
   </div>
@@ -36,6 +31,7 @@
 
 
 <script>
+import { useRouter } from 'vue-router';
 export default {
   props: {
     blog: {
@@ -45,7 +41,13 @@ export default {
   },
 
   setup() {
-    return {};
+      const router = useRouter();
+    return {
+        navigateTo(name, params)
+        {
+            router.push({name, params});
+        }
+    };
   },
 };
 </script>

@@ -19,7 +19,7 @@
                             <label for="username" class="fs-4">Username:</label>
                         </div>
                         <div class="col-10">
-                            <input type="text" class="form-control fs-4" placeholder="Username" name="username" v-model="profile.name" />
+                            <input type="text" class="form-control fs-4" placeholder="Username" name="username" required v-model="profile.name" />
                         </div>
                     </div>
                     <div class="row align-items-center mt-3">
@@ -27,12 +27,12 @@
                             <label for="username" class="fs-4">Profile Picture:</label>
                         </div>
                         <div class="col-10">
-                            <input type="url" class="form-control fs-4" placeholder="Profile picture" v-model="profile.picture" />
+                            <input type="url" class="form-control fs-4" placeholder="Profile picture"  required v-model="profile.picture" />
                         </div>
                     </div>
                     <div class="d-flex justify-content-around mt-4">
                         <button type="button" class="btn btn-outline-secondary text-dark" @click="editing = false">Cancel</button>
-                        <button class="btn btn-primary">Apply</button>
+                        <button type="submit" class="btn btn-primary">Apply</button>
                     </div>
                 </div>
             </form>

@@ -3,14 +3,14 @@
     <div class="col-2"></div>
     <div class="col-8">
       <div class="component p-3 m-2">
-        <img :src="blogPosts[0].creator.picture" alt="profile pic" />
+        <img :src="blogPost.creator.picture" alt="profile pic" />
       </div>
       <h1>
-        <strong>{{ blogPosts[0].title }}</strong>
+        <strong>{{ blogPost.title }}</strong>
       </h1>
-      <h3>{{ blogPosts[0].creator.name }}</h3>
-      <h5>Last updated: {{ blogPosts[0].createdAt.substring(0, 10) }}</h5>
-      <p class="p-1 border fs-4">{{ blogPosts[0].body }}</p>
+      <h3>{{ blogPost.creator.name }}</h3>
+      <h5>Last updated: {{ blogPost.createdAt.substring(0, 10) }}</h5>
+      <p class="p-1 border fs-4">{{ blogPost.body }}</p>
       <div class="col-2"></div>
     </div>
   </div>
@@ -18,36 +18,28 @@
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed } from "@vue/runtime-core";
 import { blogPostsService } from "../services/BlogPostsService";
-import { profilesService } from "../services/ProfilesService";
 import { AppState } from "../AppState";
 import { useRoute } from "vue-router";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 export default {
-  // props: {
-  //   blogPosts: {
-  //     type: Object,
-  //     required: true,
-  //   },
-  // },
-  setup() {
-    const route = useRoute();
+    async created()
+    {
+        try {
+            const route = useRoute();
+            await blogPostsService.getByQuery({ _id: route.params.id });
+        } catch (error) {
+            logger.error(error);
+            Pop.toast(error.message, "error");
+        }
+    },
 
-    onMounted(async () => {
-      try {
-        logger.log("hello from details page");
-        await blogPostsService.getByQuery({ _id: route.params.id });
-        // await profilesService.getProfileById(route.params.id);
-      } catch (error) {
-        logger.error(error);
-        Pop.toast(error.message, "error");
-      }
-    });
+  setup() {
     return {
       profile: computed(() => AppState.activeProfile),
-      blogPosts: computed(() => AppState.activePosts),
+      blogPost: computed(() => AppState.activePosts[0]),
       account: computed(() => AppState.account),
     };
   },
