@@ -44,6 +44,15 @@
         </div>
     </div>
     <BlogPost v-for="b in blogPosts" :key="b.id" :blog="b" />
+
+    <Modal id="create-post-modal">
+        <template #modal-header>
+            <h5>New Blog Post</h5>
+        </template>
+        <template #modal-body>
+            <BlogForm />
+        </template>
+    </Modal>
 </template>
 
 <script>
