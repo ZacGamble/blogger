@@ -40,7 +40,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-12">
-            <button v-if="account.id === profile.id" class="btn btn-primary"><i class="mdi mdi-plus mdi-24px"></i></button>
+            <button v-if="account.id === profile.id" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-post-modal"><i class="mdi mdi-plus mdi-24px"></i></button>
         </div>
     </div>
     <BlogPost v-for="b in blogPosts" :key="b.id" :blog="b" />

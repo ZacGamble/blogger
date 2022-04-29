@@ -29,7 +29,7 @@ export default {
     {
         try {
             const route = useRoute();
-            await blogPostsService.getByQuery({ _id: route.params.id });
+            await blogPostsService.getById(route.params.id);
         } catch (error) {
             logger.error(error);
             Pop.toast(error.message, "error");
@@ -39,7 +39,7 @@ export default {
   setup() {
     return {
       profile: computed(() => AppState.activeProfile),
-      blogPost: computed(() => AppState.activePosts[0]),
+      blogPost: computed(() => AppState.activePost),
       account: computed(() => AppState.account),
     };
   },

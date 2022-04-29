@@ -11,10 +11,23 @@ class BlogPostsService{
 
     async getByQuery(params = {})
     {
-        AppState.activePosts = []
        const res = await api.get("api/blogs", { params })
        logger.log("[BlogPosts getByQuery response]", res.data);
        AppState.activePosts = res.data;
+    }
+
+    async getById(id)
+    {
+        const res = await api.get("api/blogs/" + id);
+        logger.log("[Blog get by id response]", res);
+        AppState.activePost = res.data;
+    }
+
+    async createBlog(newBlog)
+    {
+        const res = await api.post("api/blogs", newBlog);
+        logger.log("[Create blog response]", res);
+        AppState.activePost = res.data;
     }
 }
 export const blogPostsService = new BlogPostsService()

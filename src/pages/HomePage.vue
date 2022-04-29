@@ -8,6 +8,8 @@ import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { onMounted } from "@vue/runtime-core";
 import { blogPostsService } from "../services/BlogPostsService";
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
 export default {
   setup() {
     onMounted(async () => {
