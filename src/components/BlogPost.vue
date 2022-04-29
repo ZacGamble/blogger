@@ -12,7 +12,7 @@
         </div>
       <h3>{{ blog.title }}</h3>
       <p>{{ blog.body }}</p>
-      <span>date?</span>
+      <span>{{blog.createdAt.substring(0, 10)}}</span>
     </div>
     <div class="col-3">
       <div
